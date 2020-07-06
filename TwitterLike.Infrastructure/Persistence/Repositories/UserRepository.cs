@@ -14,14 +14,6 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
         {
             _twitterLikeDbContext = twitterLikeDbContext;
         }
-
-        private readonly User _user = new User("user", new List<Tweet> {
-            new Tweet(Guid.NewGuid(), "Content...", DateTime.Now, true, Guid.NewGuid()),
-            new Tweet(Guid.NewGuid(), "Content...", DateTime.Now, true, Guid.NewGuid()),
-            new Tweet(Guid.NewGuid(), "Content...", DateTime.Now, true, Guid.NewGuid()),
-            new Tweet(Guid.NewGuid(), "Content...", DateTime.Now, true, Guid.NewGuid()),
-            new Tweet(Guid.NewGuid(), "Content...", DateTime.Now, true, Guid.NewGuid())
-        });
         
         public async Task AddUser(User user) {
             await _twitterLikeDbContext.Users.AddAsync(user);
