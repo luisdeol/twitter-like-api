@@ -5,13 +5,13 @@ namespace TwitterLike.Application.Commands.CreateTweet
 {
     public class CreateTweetCommand : IRequest<CreateTweetViewModel>
     {
-        public CreateTweetCommand(string description, Guid userId)
+        public CreateTweetCommand(string content, Guid userId)
         {
-            Description = description;
+            Content = content;
             UserId = userId;
         }
 
-        public string Description { get; set; }
-        public Guid UserId { get; set; }
+        public string Content { get; private set; }
+        public Guid UserId { get; private set; }
     }
 }

@@ -8,4 +8,8 @@
     <PackageReference Include="MediatR" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TwitterLike.Core\TwitterLike.Core.csproj" />
+  </ItemGroup>
+
 </Project>

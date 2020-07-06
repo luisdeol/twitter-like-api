@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using TwitterLike.Application.Commands.CreateTweet;
+using TwitterLike.Core.Repositories;
+using TwitterLike.Infrastructure.Persistence;
+using TwitterLike.Infrastructure.Persistence.Repositories;
 
 namespace TwitterLike.API
 {
@@ -28,6 +25,10 @@ namespace TwitterLike.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(CreateTweetCommand));
+            
+            services.AddDbContext<TwitterLikeDbContext>(options => options.UseInMemoryDatabase("TwitterLike"));
+
+            services.AddScoped<IUserRepository, UserRepository>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

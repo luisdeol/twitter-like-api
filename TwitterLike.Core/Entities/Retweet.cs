@@ -4,7 +4,9 @@ namespace TwitterLike.Core.Entities
 {
     public class TweetRetweet
     {
-        public Guid TweetId { get; set; }
-        public Guid UserId { get; set; }
+        protected TweetRetweet() {}
+        public Guid TweetId { get; private set; }
+        public Guid UserId { get; private set; }
+        public DateTime CreatedAt { get; private set; }
     }
 }

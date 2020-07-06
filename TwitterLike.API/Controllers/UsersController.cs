@@ -27,7 +27,7 @@ namespace TwitterLike.API.Controllers
         
         [HttpPost("{userId}/tweets")]
         public async Task<IActionResult> Create(Guid userId, [FromBody]CreateTweetInputModel createTweetInputModel) {
-            var createTweetCommand = new CreateTweetCommand(createTweetInputModel.Description, userId);
+            var createTweetCommand = new CreateTweetCommand(createTweetInputModel.Content, userId);
 
             var createTweetViewModel = await _mediator.Send(createTweetCommand);
 

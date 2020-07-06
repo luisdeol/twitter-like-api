@@ -2,14 +2,27 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using TwitterLike.Core.Repositories;
 
 namespace TwitterLike.Application.Queries.GetTweet
 {
     public class GetTweetQueryHandler : IRequestHandler<GetTweetQuery, GetTweetViewModel>
     {
-        public Task<GetTweetViewModel> Handle(GetTweetQuery request, CancellationToken cancellationToken)
+        private readonly IUserRepository _userRepository;
+        public GetTweetQueryHandler(IUserRepository userRepository)
         {
-            return Task.FromResult(new GetTweetViewModel(request.TweetId, "Testing...", new GetTweetUserViewModel(request.UserId, "user_test", "User Test")));
+            _userRepository = userRepository;
+        }
+
+        public async Task<GetTweetViewModel> Handle(GetTweetQuery request, CancellationToken cancellationToken)
+        {
+            var tweet = await _userRepository.GetTweetById(request.TweetId);
+
+            if (tweet == null) {
+                return null;
+            }
+
+            return new GetTweetViewModel(tweet.Id, tweet.Content, new GetTweetUserViewModel(tweet.UserId, "teste", "teste"));
         }
     }
 }

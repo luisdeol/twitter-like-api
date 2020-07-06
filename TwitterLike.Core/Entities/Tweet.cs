@@ -5,11 +5,33 @@ namespace TwitterLike.Core.Entities
 {
     public class Tweet
     {
-        public Guid Id { get; set; }
-        public string Content { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public bool Active { get; set; }
-        public List<TweetLike> Likes { get; set; }
-        public List<TweetRetweet> Retweets { get; set; }
+        protected Tweet() { }
+        public Tweet(string content)
+        {
+            Id = Guid.NewGuid();
+            Content = content;
+            Active = true;
+            CreatedAt = DateTime.Now;
+            Likes = new List<TweetLike>();
+            Retweets = new List<TweetRetweet>();
+        }
+
+
+        public Tweet(Guid id, string content, DateTime createdAt, bool active, Guid userId)
+        {
+            this.Id = id;
+            this.Content = content;
+            this.CreatedAt = createdAt;
+            this.Active = active;
+            this.UserId = userId;
+        }
+        
+        public Guid Id { get; private set; }
+        public string Content { get; private set; }
+        public DateTime CreatedAt { get; private set; }
+        public bool Active { get; private set; }
+        public List<TweetLike> Likes { get; private set; }
+        public List<TweetRetweet> Retweets { get; private set; }
+        public Guid UserId { get; set; }
     }
 }

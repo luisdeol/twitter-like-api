@@ -4,6 +4,7 @@ namespace TwitterLike.Core.Entities
 {
     public class UserFollower
     {
+        protected UserFollower() { }
         public UserFollower(Guid follower, Guid followee)
         {
             Follower = follower;

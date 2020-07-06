@@ -4,15 +4,15 @@ namespace TwitterLike.Application.Commands.CreateTweet
 {
     public class CreateTweetViewModel
     {
-        public CreateTweetViewModel(Guid id, string description, Guid userId)
+        public CreateTweetViewModel(Guid id, string content, Guid userId)
         {
             Id = id;
-            Description = description;
+            Content = content;
             UserId = userId;
         }
 
         public Guid Id { get; private set; }
-        public string Description { get; private set; }
+        public string Content { get; private set; }
         public Guid UserId { get; private set; }
     }
 }

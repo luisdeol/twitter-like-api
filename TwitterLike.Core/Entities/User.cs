@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
+using TwitterLike.Core.Exceptions;
 
 namespace TwitterLike.Core.Entities
 {
     public class User
     {
-        public User(string username) {
+        protected User() { }
+        public User(string username, List<Tweet> tweets) {
+            Id = Guid.NewGuid();
             Username = username;
             CreatedAt = DateTime.Now;
             Active = true;
-            Tweets = new List<Tweet>();
+            Tweets = tweets ?? new List<Tweet>();
             Followers = new List<UserFollower>();
         }
+        
 
         public Guid Id { get; private set; }
         public string Name { get; set; }
@@ -24,7 +28,26 @@ namespace TwitterLike.Core.Entities
         public void Follow(Guid follower) {
             if (Followers != null) {
                 var userFollower = new UserFollower(follower, Id);
+
                 Followers.Add(userFollower);
+            } else {
+                throw new InvalidStateException(nameof(User));
+            }
+        }
+
+        public Tweet AddTweet(string description) {
+            if (string.IsNullOrWhiteSpace(description)) {
+                throw new ArgumentNullException("The Tweet input data is invalid.");
+            }
+
+            if (Tweets != null) {
+                var newTweet = new Tweet(description);
+
+                Tweets.Add(newTweet);
+
+                return newTweet;
+            } else {
+                throw new InvalidStateException(nameof(User));
             }
         }
     }
