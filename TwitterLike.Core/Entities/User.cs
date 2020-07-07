@@ -7,9 +7,11 @@ namespace TwitterLike.Core.Entities
     public class User
     {
         protected User() { }
-        public User(string username, List<Tweet> tweets) {
+        public User(string name, string username, string email, List<Tweet> tweets) {
             Id = Guid.NewGuid();
+            Name = name;
             Username = username;
+            Email = email;
             CreatedAt = DateTime.Now;
             Active = true;
             Tweets = tweets ?? new List<Tweet>();
@@ -20,6 +22,7 @@ namespace TwitterLike.Core.Entities
         public Guid Id { get; private set; }
         public string Name { get; set; }
         public string Username { get; private set; }
+        public string Email { get; set; }
         public DateTime CreatedAt { get; private set; }
         public bool Active { get; private set; }
         public List<Tweet> Tweets { get; private set; }

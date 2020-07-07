@@ -28,7 +28,7 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
         {
             User user;
             if (!await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == userId)) {
-                user = new User("test", new List<Tweet>());
+                user = new User("test", "test", "test@email.com", new List<Tweet>());
 
                 await AddUser(user);
                 await SaveAsync();
@@ -46,7 +46,7 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
 
         public async Task<Tweet> GetTweetById(Guid tweetId)
         {
-            return await _twitterLikeDbContext.Tweets.SingleOrDefaultAsync(t => t.Id == tweetId);
+            return await _twitterLikeDbContext.Tweets.SingleOrDefaultAsync(t => t.Id == tweetId && t.Active);
         }
     }
 }

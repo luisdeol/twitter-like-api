@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TwitterLike.Application.Commands.CreateTweet;
+using TwitterLike.Application.Commands.SignUp;
 using TwitterLike.Application.Queries.GetTweet;
+using TwitterLike.Application.Queries.GetUser;
 
 namespace TwitterLike.API.Controllers
 {
@@ -14,6 +16,28 @@ namespace TwitterLike.API.Controllers
         public UsersController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserById(Guid userId) {
+            var getUserQuery = new GetUserQuery(userId);
+
+            var getUserViewModel = await _mediator.Send(getUserQuery);
+
+            if (getUserViewModel == null) {
+                return NotFound();
+            }
+
+            return Ok(getUserViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp([FromBody]SignUpInputModel signUpInputModel) {
+            var signUpCommand = new SignUpCommand(signUpInputModel);
+
+            var signUpViewModel = await _mediator.Send(signUpCommand);
+
+            return CreatedAtAction(nameof(GetUserById), new { userId = signUpViewModel.UserId }, signUpViewModel);
         }
 
         [HttpGet("{userId}/tweets/{tweetId}")]
@@ -27,7 +51,7 @@ namespace TwitterLike.API.Controllers
         
         [HttpPost("{userId}/tweets")]
         public async Task<IActionResult> Create(Guid userId, [FromBody]CreateTweetInputModel createTweetInputModel) {
-            var createTweetCommand = new CreateTweetCommand(createTweetInputModel.Content, userId);
+            var createTweetCommand = new CreateTweetCommand(createTweetInputModel, userId);
 
             var createTweetViewModel = await _mediator.Send(createTweetCommand);
 
