@@ -1,8 +1,6 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using TwitterLike.Application.Exceptions;
 using TwitterLike.Core.Entities;
 using TwitterLike.Core.Repositories;
 
@@ -18,17 +16,11 @@ namespace TwitterLike.Application.Commands.CreateTweet
         
         public async Task<CreateTweetViewModel> Handle(CreateTweetCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserById(request.UserId);
+            var tweet = new Tweet(request.Content, request.UserId);
 
-            if (user == null) {
-                throw new NotFoundException(nameof(User));
-            }
+            await _userRepository.AddTweet(request.UserId, tweet);
             
-            var newTweet = user.AddTweet(request.Content);
-
-            await _userRepository.SaveAsync();
-            
-            return new CreateTweetViewModel(newTweet.Id, newTweet.Content, newTweet.UserId); 
+            return new CreateTweetViewModel(tweet.Id, tweet.Content, tweet.UserId); 
         }
     }
 }

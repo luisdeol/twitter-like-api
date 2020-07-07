@@ -1,12 +1,24 @@
 @baseUrl = http://localhost:5000/api
-@userId = 76a2d166-4ff0-435f-ae74-51e7d166fd24
-@tweetId = fec74dfa-2ea0-469c-bb42-abfe474e38bc
+@userId = 51cd2201-c7ce-4686-aac3-73c73428f540
+@tweetId = 343d03ab-caf7-4395-85a7-36a8e781f6d1
 
 ###
 
-GET {{baseUrl}}/users/{{userId}}/tweets/{{tweetId}}
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "name": "Luis",
+    "username": "luisdeolme",
+    "email": "luisdeol@email.com"
+}
 
 ###
+
+GET {{baseUrl}}/users/{{userId}}
+
+###
+
 
 POST {{baseUrl}}/users/{{userId}}/tweets
 Content-Type: application/json
@@ -14,3 +26,7 @@ Content-Type: application/json
 {
     "content": "Testing..."
 }
+
+###
+
+GET {{baseUrl}}/users/{{userId}}/tweets/{{tweetId}}

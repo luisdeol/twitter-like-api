@@ -2,6 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using TwitterLike.Core.Entities;
+using TwitterLike.Core.Exceptions;
 using TwitterLike.Core.Repositories;
 
 namespace TwitterLike.Application.Queries.GetTweet
@@ -19,7 +21,7 @@ namespace TwitterLike.Application.Queries.GetTweet
             var tweet = await _userRepository.GetTweetById(request.TweetId);
 
             if (tweet == null) {
-                return null;
+                throw new NotFoundException(nameof(Tweet));
             }
 
             return new GetTweetViewModel(tweet.Id, tweet.Content, new GetTweetUserViewModel(tweet.UserId, "teste", "teste"));

@@ -7,9 +7,11 @@ namespace TwitterLike.Core.Repositories
 {
     public interface IUserRepository
     {
-         Task<List<Tweet>> GetTweetsByUserId(Guid userId);
-         Task<Tweet> GetTweetById(Guid tweetId);
-         Task<User> GetUserById(Guid userId);
-         Task SaveAsync();
+        Task Add(User user);
+        Task AddTweet(Guid userId, Tweet tweet);
+        Task<List<Tweet>> GetTweetsByUserId(Guid userId);
+        Task<Tweet> GetTweetById(Guid tweetId);
+        Task<User> GetUserById(Guid userId);
+        Task SaveAsync();
     }
 }

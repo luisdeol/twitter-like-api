@@ -1,6 +1,6 @@
 using System;
 
-namespace TwitterLike.Application.Exceptions
+namespace TwitterLike.Core.Exceptions
 {
     public class NotFoundException : Exception
     {

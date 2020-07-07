@@ -7,14 +7,14 @@ namespace TwitterLike.Core.Entities
     public class User
     {
         protected User() { }
-        public User(string name, string username, string email, List<Tweet> tweets) {
+        public User(string name, string username, string email) {
             Id = Guid.NewGuid();
             Name = name;
             Username = username;
             Email = email;
             CreatedAt = DateTime.Now;
             Active = true;
-            Tweets = tweets ?? new List<Tweet>();
+            Tweets = new List<Tweet>();
             Followers = new List<UserFollower>();
         }
         
@@ -33,22 +33,6 @@ namespace TwitterLike.Core.Entities
                 var userFollower = new UserFollower(follower, Id);
 
                 Followers.Add(userFollower);
-            } else {
-                throw new InvalidStateException(nameof(User));
-            }
-        }
-
-        public Tweet AddTweet(string description) {
-            if (string.IsNullOrWhiteSpace(description)) {
-                throw new ArgumentNullException("The Tweet input data is invalid.");
-            }
-
-            if (Tweets != null) {
-                var newTweet = new Tweet(description);
-
-                Tweets.Add(newTweet);
-
-                return newTweet;
             } else {
                 throw new InvalidStateException(nameof(User));
             }

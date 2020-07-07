@@ -6,10 +6,11 @@ namespace TwitterLike.Core.Entities
     public class Tweet
     {
         protected Tweet() { }
-        public Tweet(string content)
+        public Tweet(string content, Guid userId)
         {
             Id = Guid.NewGuid();
             Content = content;
+            UserId = userId;
             Active = true;
             CreatedAt = DateTime.Now;
             Likes = new List<TweetLike>();
