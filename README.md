@@ -8,7 +8,7 @@ I decided to develop this application because I wanted to keep improving my arch
 ### Clone   
 ```git clone https://github.com/luisdeol/twitter-like-api.git```   
    
-### Change into the TwitterLike.API directory   
+### Change into the TwitterLike.API directory, restore and run the application   
 ```
 cd twitter-like-api   
 cd TwitterLike.API   
@@ -16,5 +16,15 @@ dotnet restore
 dotnet run
 ```
 
+### Running Unit Tests  
+The units tests are written using xUnit testing framework. It also uses Moq and AutoFixture packages for improving unit testing experience.   
+```  
+cd TwitterLike.UnitTests   
+dotnet test   
+```
+  
 ### Swagger   
 You can access the API documentation by accessing the http://localhost:5000/swagger URL
+
+
+
