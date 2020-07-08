@@ -9,7 +9,7 @@ namespace TwitterLike.Core.Entities
         public Tweet(string content, Guid userId)
         {
             Id = Guid.NewGuid();
-            Content = content;
+            Content = !string.IsNullOrWhiteSpace(content) ? content : throw new ArgumentException("Content parameter is invalid.");
             UserId = userId;
             Active = true;
             CreatedAt = DateTime.Now;

@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:5000/api
-@userId = 51cd2201-c7ce-4686-aac3-73c73428f540
+@userId = b5fe3a03-3d98-442d-9e78-474b2fce2d6c
 @tweetId = 343d03ab-caf7-4395-85a7-36a8e781f6d1
 
 ###
@@ -24,7 +24,7 @@ POST {{baseUrl}}/users/{{userId}}/tweets
 Content-Type: application/json
 
 {
-    "content": "Testing..."
+    "content": ""
 }
 
 ###
