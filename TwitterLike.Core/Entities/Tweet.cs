@@ -26,10 +26,16 @@ namespace TwitterLike.Core.Entities
             this.Active = active;
             this.UserId = userId;
         }
+
+        public void SetAsDeleted() {
+            Active = false;
+            DeletedAt = DateTime.Now;
+        }
         
         public Guid Id { get; private set; }
         public string Content { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
         public bool Active { get; private set; }
         public List<TweetLike> Likes { get; private set; }
         public List<TweetRetweet> Retweets { get; private set; }

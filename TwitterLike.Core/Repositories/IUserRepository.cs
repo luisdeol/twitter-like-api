@@ -9,6 +9,7 @@ namespace TwitterLike.Core.Repositories
     {
         Task Add(User user);
         Task AddTweet(Guid userId, Tweet tweet);
+        Task DeleteTweet(Guid userId, Guid tweetId);
         Task<List<Tweet>> GetTweetsByUserId(Guid userId);
         Task<Tweet> GetTweetById(Guid tweetId);
         Task<User> GetUserById(Guid userId);

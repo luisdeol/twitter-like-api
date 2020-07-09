@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TwitterLike.Application.Commands.CreateTweet;
+using TwitterLike.Application.Commands.DeleteTweet;
 using TwitterLike.Application.Commands.SignUp;
 using TwitterLike.Application.Queries.GetTweet;
 using TwitterLike.Application.Queries.GetUser;
@@ -56,6 +57,16 @@ namespace TwitterLike.API.Controllers
             var createTweetViewModel = await _mediator.Send(createTweetCommand);
 
             return CreatedAtAction(nameof(GetById), new { userId = userId, tweetId = createTweetViewModel.Id }, createTweetViewModel);
+        }
+
+        [HttpDelete("{userId}/tweets/{tweetId}")]
+
+        public async Task<IActionResult> Delete(Guid userId, Guid tweetId) {
+            var deleteTweetCommand = new DeleteTweetCommand(userId, tweetId);
+
+            await _mediator.Send(deleteTweetCommand);
+
+            return NoContent();
         }
     }
 }

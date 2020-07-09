@@ -1,9 +1,17 @@
 using System;
+using MediatR;
 
 namespace TwitterLike.Application.Commands.DeleteTweet
 {
-    public class DeleteTweetCommand
+    public class DeleteTweetCommand : IRequest<Unit>
     {
-        public Guid TweetId { get; set; }
+        public DeleteTweetCommand(Guid userId, Guid tweetId)
+        {
+            UserId = userId;
+            TweetId = tweetId;
+        }
+
+        public Guid UserId { get; private set; }
+        public Guid TweetId { get; private set; }
     }
 }

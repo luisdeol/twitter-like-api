@@ -59,5 +59,22 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
             await _twitterLikeDbContext.Tweets.AddAsync(tweet);
             await _twitterLikeDbContext.SaveChangesAsync();
         }
+
+        public async Task DeleteTweet(Guid userId, Guid tweetId)
+        {
+            if (!await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == userId && u.Active)) {
+                throw new NotFoundException(nameof(User));
+            }
+
+            var tweet = await _twitterLikeDbContext.Tweets.SingleOrDefaultAsync(t => t.Id == tweetId && t.UserId == userId);
+
+            if (tweet == null) {
+                throw new NotFoundException(nameof(Tweet));
+            }
+
+            tweet.SetAsDeleted();
+            
+            await _twitterLikeDbContext.SaveChangesAsync();
+        }
     }
 }
