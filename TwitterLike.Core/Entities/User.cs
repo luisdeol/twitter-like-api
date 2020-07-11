@@ -27,15 +27,14 @@ namespace TwitterLike.Core.Entities
         public bool Active { get; private set; }
         public List<Tweet> Tweets { get; private set; }
         public List<UserFollower> Followers { get; private set; }
+        public int FolloweesCount { get; private set; }
 
-        public void Follow(Guid follower) {
-            if (Followers != null) {
-                var userFollower = new UserFollower(follower, Id);
-
-                Followers.Add(userFollower);
-            } else {
-                throw new InvalidStateException(nameof(User));
+        public void SetFollowersCount(int followeesCount) {
+            if (!Active) {
+                throw new InvalidStateException(nameof(User));     
             }
+
+            FolloweesCount = followeesCount;
         }
     }
 }

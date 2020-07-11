@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TwitterLike.Application.Commands.CreateTweet;
 using TwitterLike.Application.Commands.DeleteTweet;
+using TwitterLike.Application.Commands.FollowUser;
 using TwitterLike.Application.Commands.SignUp;
 using TwitterLike.Application.Queries.GetTweet;
 using TwitterLike.Application.Queries.GetUser;
@@ -65,6 +66,15 @@ namespace TwitterLike.API.Controllers
             var deleteTweetCommand = new DeleteTweetCommand(userId, tweetId);
 
             await _mediator.Send(deleteTweetCommand);
+
+            return NoContent();
+        }
+
+        [HttpPost("{userId}/followees")]
+        public async Task<IActionResult> Follow(Guid userId, [FromBody]FollowUserInputModel followUserInputModel) {
+            var followUserCommand = new FollowUserCommand(userId, followUserInputModel.FolloweeId);
+
+            await _mediator.Send(followUserCommand);
 
             return NoContent();
         }

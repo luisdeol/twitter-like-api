@@ -1,8 +1,9 @@
 @baseUrl = http://localhost:5000/api
-@userId = 5117dcb0-61e0-4b96-86a0-e070aaa8dd2c
-@tweetId = 1f3f1e15-a2e7-46ef-8c6c-db7582d90d26
+@userId = e0538a50-7ef5-4494-abe3-e2b79b7d6962
+@user2Id = e7ec2526-dfd1-441c-84be-78c7c3c0f42f
+@tweetId = 3ccf8990-4368-4ae2-98c2-104989cd588e
 
-###
+### SIGN UP 1
 
 POST {{baseUrl}}/users
 Content-Type: application/json
@@ -13,6 +14,16 @@ Content-Type: application/json
     "email": "luisdeol@email.com"
 }
 
+### SIGN UP 2
+
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "name": "Luis 2",
+    "username": "luisdeolme2",
+    "email": "luisdeo2l@email.com"
+}
 ###
 
 GET {{baseUrl}}/users/{{userId}}
@@ -34,3 +45,11 @@ GET {{baseUrl}}/users/{{userId}}/tweets/{{tweetId}}
 ### 
 
 DELETE {{baseUrl}}/users/{{userId}}/tweets/{{tweetId}}
+
+### Follow User
+POST {{baseUrl}}/users/{{userId}}/followees
+Content-Type: application/json
+
+{
+    "followeeId": "e7ec2526-dfd1-441c-84be-78c7c3c0f42f"
+}

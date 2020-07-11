@@ -23,7 +23,7 @@ namespace TwitterLike.Application.Queries.GetUser
                 throw new NotFoundException(nameof(User));
             }
 
-            var getUserViewModel = new GetUserViewModel(user.Id, user.Name, user.Username, user.Email);
+            var getUserViewModel = new GetUserViewModel(user.Id, user.Name, user.Username, user.Email, user.FolloweesCount);
 
             return getUserViewModel;
         }

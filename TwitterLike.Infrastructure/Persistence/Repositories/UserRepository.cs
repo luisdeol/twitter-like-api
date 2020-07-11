@@ -28,7 +28,11 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
             }
 
             var user = await _twitterLikeDbContext.Users.SingleOrDefaultAsync(u => u.Id == userId && u.Active);
-
+            
+            var followeesCount = await _twitterLikeDbContext.Followers.CountAsync(f => f.FollowerId == userId);
+            
+            user.SetFollowersCount(followeesCount);
+            
             return user;
         }
 
@@ -39,7 +43,11 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
 
         public async Task<Tweet> GetTweetById(Guid tweetId)
         {
-            var tweet = await _twitterLikeDbContext.Tweets.SingleOrDefaultAsync(t => t.Id == tweetId && t.Active);
+            var tweet = await _twitterLikeDbContext
+                .Tweets
+                .AsNoTracking()
+                .Include(t => t.User)
+                .SingleOrDefaultAsync(t => t.Id == tweetId && t.Active);
 
             return tweet;
         }
@@ -74,6 +82,16 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
 
             tweet.SetAsDeleted();
             
+            await _twitterLikeDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddFollowee(UserFollower userFollower)
+        {
+            if (!await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == userFollower.FolloweeId) && !await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == userFollower.FollowerId)){
+                throw new NotFoundException(nameof(Tweet));
+            }
+
+            _twitterLikeDbContext.Entry(userFollower).State = EntityState.Added;
             await _twitterLikeDbContext.SaveChangesAsync();
         }
     }

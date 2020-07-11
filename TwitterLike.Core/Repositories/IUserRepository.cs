@@ -13,6 +13,7 @@ namespace TwitterLike.Core.Repositories
         Task<List<Tweet>> GetTweetsByUserId(Guid userId);
         Task<Tweet> GetTweetById(Guid tweetId);
         Task<User> GetUserById(Guid userId);
+        Task AddFollowee(UserFollower userFollower);
         Task SaveAsync();
     }
 }

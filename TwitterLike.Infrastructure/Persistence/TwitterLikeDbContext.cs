@@ -11,17 +11,18 @@ namespace TwitterLike.Infrastructure.Persistence
         }
         public DbSet<Tweet> Tweets { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserFollower> Followers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder
                 .Entity<Tweet>()
                 .HasKey(t => t.Id);
-            
+
             modelBuilder
                 .Entity<Tweet>()
-                .Property(t => t.Id)
-                .ValueGeneratedOnAdd();
-
+                .HasOne(t => t.User)
+                .WithMany(u => u.Tweets)
+                .HasForeignKey(t => t.UserId);
 
             modelBuilder
                 .Entity<Tweet>()
@@ -42,16 +43,24 @@ namespace TwitterLike.Infrastructure.Persistence
             modelBuilder
                 .Entity<TweetRetweet>()
                 .HasKey(tr => new { tr.TweetId, tr.UserId});
+            
+            modelBuilder
+                .Entity<User>()
+                .HasKey(u => u.Id);
+
+            modelBuilder
+                .Entity<User>()
+                .Ignore(u => u.FolloweesCount);
 
             modelBuilder
                 .Entity<User>()
                 .HasMany(u => u.Tweets)
-                .WithOne()
+                .WithOne(t => t.User)
                 .HasForeignKey(t => t.UserId);
 
             modelBuilder
                 .Entity<UserFollower>()
-                .HasKey(uf => new { uf.Followee, uf.Follower });
+                .HasKey(uf => new { uf.FolloweeId, uf.FollowerId });
         }
     }
 }

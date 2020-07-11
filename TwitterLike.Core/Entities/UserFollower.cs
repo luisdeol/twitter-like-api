@@ -7,11 +7,11 @@ namespace TwitterLike.Core.Entities
         protected UserFollower() { }
         public UserFollower(Guid follower, Guid followee)
         {
-            Follower = follower;
-            Followee = followee;
+            FollowerId = follower;
+            FolloweeId = followee;
         }
 
-        public Guid Follower { get; private set; }
-        public Guid Followee { get; private set; }
+        public Guid FollowerId { get; private set; }
+        public Guid FolloweeId { get; private set; }
     }
 }

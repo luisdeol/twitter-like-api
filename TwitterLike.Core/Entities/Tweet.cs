@@ -40,5 +40,6 @@ namespace TwitterLike.Core.Entities
         public List<TweetLike> Likes { get; private set; }
         public List<TweetRetweet> Retweets { get; private set; }
         public Guid UserId { get; set; }
+        public User User { get; private set; }
     }
 }
