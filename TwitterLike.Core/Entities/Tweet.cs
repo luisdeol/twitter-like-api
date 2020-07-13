@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TwitterLike.Core.Exceptions;
 
 namespace TwitterLike.Core.Entities
 {
@@ -41,5 +42,14 @@ namespace TwitterLike.Core.Entities
         public List<TweetRetweet> Retweets { get; private set; }
         public Guid UserId { get; set; }
         public User User { get; private set; }
+
+        public int LikesAmount{ get; private set; }
+        public void SetLikesAmount(int likesAmount) {
+            if (!Active) {
+                throw new InvalidStateException(nameof(Tweet));
+            }
+
+            LikesAmount = likesAmount;
+        } 
     }
 }

@@ -12,6 +12,7 @@ namespace TwitterLike.Infrastructure.Persistence
         public DbSet<Tweet> Tweets { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserFollower> Followers { get; set; }
+        public DbSet<TweetLike> TweetLikes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder
@@ -35,6 +36,10 @@ namespace TwitterLike.Infrastructure.Persistence
                 .HasMany(t => t.Likes)
                 .WithOne()
                 .HasForeignKey(l => l.UserId);
+
+            modelBuilder
+                .Entity<Tweet>()
+                .Ignore(t => t.LikesAmount);
 
             modelBuilder
                 .Entity<TweetLike>()

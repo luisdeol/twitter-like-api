@@ -48,6 +48,12 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
                 .AsNoTracking()
                 .Include(t => t.User)
                 .SingleOrDefaultAsync(t => t.Id == tweetId && t.Active);
+            
+            var likesAmount = await _twitterLikeDbContext
+                .TweetLikes
+                .CountAsync(t => t.TweetId == tweetId);
+
+            tweet.SetLikesAmount(likesAmount);
 
             return tweet;
         }
@@ -92,6 +98,20 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
             }
 
             _twitterLikeDbContext.Entry(userFollower).State = EntityState.Added;
+            await _twitterLikeDbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveTweetLike(TweetLike tweetLike)
+        {
+            if (!await _twitterLikeDbContext.Tweets.AnyAsync(t => t.Id == tweetLike.TweetId)) {
+                throw new NotFoundException(nameof(Tweet));
+            }
+
+            if (!await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == tweetLike.UserId)) {
+                throw new NotFoundException(nameof(User));
+            }
+
+            _twitterLikeDbContext.Entry(tweetLike).State = EntityState.Added;
             await _twitterLikeDbContext.SaveChangesAsync();
         }
     }

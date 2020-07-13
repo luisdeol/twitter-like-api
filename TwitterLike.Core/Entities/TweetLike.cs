@@ -4,7 +4,13 @@ namespace TwitterLike.Core.Entities
 {
     public class TweetLike
     {
-        public Guid TweetId { get; set; }
-        public Guid UserId { get; set; }
+        public TweetLike(Guid tweetId, Guid userId)
+        {
+            TweetId = tweetId;
+            UserId = userId;
+        }
+
+        public Guid TweetId { get; private set; }
+        public Guid UserId { get; private set; }
     }
 }

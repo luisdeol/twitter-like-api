@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using TwitterLike.Application.Commands.CreateTweet;
 using TwitterLike.Application.Commands.DeleteTweet;
 using TwitterLike.Application.Commands.FollowUser;
+using TwitterLike.Application.Commands.LikeTweet;
 using TwitterLike.Application.Commands.SignUp;
 using TwitterLike.Application.Queries.GetTweet;
 using TwitterLike.Application.Queries.GetUser;
@@ -75,6 +76,15 @@ namespace TwitterLike.API.Controllers
             var followUserCommand = new FollowUserCommand(userId, followUserInputModel.FolloweeId);
 
             await _mediator.Send(followUserCommand);
+
+            return NoContent();
+        }
+
+        [HttpPost("{userId}/tweets/{tweetId}/likes")]
+        public async Task<IActionResult> Like(Guid userId, Guid tweetId, [FromBody]LikeTweetInputModel likeTweetInputModel) {
+            var likeTweetCommand = new LikeTweetCommand(likeTweetInputModel.LikeGiverId, tweetId);
+
+            await _mediator.Send(likeTweetCommand);
 
             return NoContent();
         }
