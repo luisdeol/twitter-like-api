@@ -91,8 +91,10 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
             await _twitterLikeDbContext.SaveChangesAsync();
         }
 
-        public async Task AddFollowee(UserFollower userFollower)
+        public async Task AddFollowee(Guid followerId, Guid followeeId)
         {
+            var userFollower = new UserFollower(followerId, followeeId);
+            
             if (!await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == userFollower.FolloweeId) && !await _twitterLikeDbContext.Users.AnyAsync(u => u.Id == userFollower.FollowerId)){
                 throw new NotFoundException(nameof(Tweet));
             }

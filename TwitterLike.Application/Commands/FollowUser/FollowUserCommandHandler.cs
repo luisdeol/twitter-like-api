@@ -16,9 +16,7 @@ namespace TwitterLike.Application.Commands.FollowUser
 
         public async Task<Unit> Handle(FollowUserCommand request, CancellationToken cancellationToken)
         {
-            var userFollower = new UserFollower(request.FollowerId, request.FolloweeId);
-
-            await _userRepository.AddFollowee(userFollower);
+            await _userRepository.AddFollowee(request.FollowerId, request.FolloweeId);
 
             return Unit.Value;
         }
