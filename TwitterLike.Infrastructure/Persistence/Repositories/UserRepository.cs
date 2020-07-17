@@ -103,8 +103,10 @@ namespace TwitterLike.Infrastructure.Persistence.Repositories
             await _twitterLikeDbContext.SaveChangesAsync();
         }
 
-        public async Task SaveTweetLike(TweetLike tweetLike)
+        public async Task SaveTweetLike(Guid tweetId, Guid userId)
         {
+            var tweetLike = new TweetLike(tweetId, userId);
+            
             if (!await _twitterLikeDbContext.Tweets.AnyAsync(t => t.Id == tweetLike.TweetId)) {
                 throw new NotFoundException(nameof(Tweet));
             }

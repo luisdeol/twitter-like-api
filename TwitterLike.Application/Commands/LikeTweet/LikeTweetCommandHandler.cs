@@ -16,9 +16,7 @@ namespace TwitterLike.Application.Commands.LikeTweet
 
         public async Task<Unit> Handle(LikeTweetCommand request, CancellationToken cancellationToken)
         {
-            var tweetLike = new TweetLike(request.TweetId, request.UserId);
-
-            await _userRepository.SaveTweetLike(tweetLike);
+            await _userRepository.SaveTweetLike(request.TweetId, request.UserId);
 
             return Unit.Value;
         }
