@@ -5,9 +5,9 @@ namespace TwitterLike.Application.Commands.LikeTweet
 {
     public class LikeTweetCommand : IRequest<Unit>
     {
-        public LikeTweetCommand(Guid likeGiverId, Guid tweetId)
+        public LikeTweetCommand(Guid userId, Guid tweetId)
         {
-            UserId = likeGiverId;
+            UserId = userId;
             TweetId = tweetId;
         }
 

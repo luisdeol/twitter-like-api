@@ -4,6 +4,6 @@ namespace TwitterLike.Application.Commands.LikeTweet
 {
     public class LikeTweetInputModel
     {
-        public Guid LikeGiverId { get; set; }
+        public Guid LikeUserId { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using TwitterLike.Application.Commands.CreateTweet;
 using TwitterLike.Application.Commands.DeleteTweet;
 using TwitterLike.Application.Commands.FollowUser;
 using TwitterLike.Application.Commands.LikeTweet;
+using TwitterLike.Application.Commands.Retweet;
 using TwitterLike.Application.Commands.SignUp;
 using TwitterLike.Application.Queries.GetTweet;
 using TwitterLike.Application.Queries.GetUser;
@@ -82,9 +83,18 @@ namespace TwitterLike.API.Controllers
 
         [HttpPost("{userId}/tweets/{tweetId}/likes")]
         public async Task<IActionResult> Like(Guid userId, Guid tweetId, [FromBody]LikeTweetInputModel likeTweetInputModel) {
-            var likeTweetCommand = new LikeTweetCommand(likeTweetInputModel.LikeGiverId, tweetId);
+            var likeTweetCommand = new LikeTweetCommand(likeTweetInputModel.LikeUserId, tweetId);
 
             await _mediator.Send(likeTweetCommand);
+
+            return NoContent();
+        }
+
+        [HttpPost("{userId}/tweets/{tweetId}/retweets")]
+        public async Task<IActionResult> Retweet(Guid userId, Guid tweetId, [FromBody]RetweetInputModel retweetInputModel) {
+            var retweetCommand = new RetweetCommand(tweetId, retweetInputModel.RetweetUserId);
+
+            await _mediator.Send(retweetCommand);
 
             return NoContent();
         }

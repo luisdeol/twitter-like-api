@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:5000/api
-@userId = 9219e908-fab1-4b76-b465-c99f9041022b
-@user2Id = c6d2a355-a8a2-45c4-adf5-a6f156ef2ba3
-@tweetId = 34bd0639-b2ff-4366-9684-ba2aed029aa2
+@userId = f13caca6-1d47-4d62-9083-9921357e1211
+@user2Id = 96522f4a-88a3-49e9-a6ce-572e448ac73b
+@tweetId = 22f963dd-8220-421e-8f06-9578fc6c733c
 
 ### SIGN UP 1
 
@@ -48,7 +48,16 @@ POST {{baseUrl}}/users/{{userId}}/tweets/{{tweetId}}/likes
 Content-Type: application/json
 
 {
-    "likeGiverId": "c6d2a355-a8a2-45c4-adf5-a6f156ef2ba3" 
+    "likeUserId": "96522f4a-88a3-49e9-a6ce-572e448ac73b" 
+}
+
+###
+
+POST {{baseUrl}}/users/{{userId}}/tweets/{{tweetId}}/retweets
+Content-Type: application/json
+
+{
+    "retweetUserId": "96522f4a-88a3-49e9-a6ce-572e448ac73b" 
 }
 
 ### 

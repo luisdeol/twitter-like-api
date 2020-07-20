@@ -44,12 +44,15 @@ namespace TwitterLike.Core.Entities
         public User User { get; private set; }
 
         public int LikesAmount{ get; private set; }
-        public void SetLikesAmount(int likesAmount) {
+        public int RetweetsAmount { get; private set; }
+
+        public void SetAmounts(int likesAmount, int retweetsAmount) {
             if (!Active) {
                 throw new InvalidStateException(nameof(Tweet));
             }
 
             LikesAmount = likesAmount;
+            RetweetsAmount = retweetsAmount;
         } 
     }
 }

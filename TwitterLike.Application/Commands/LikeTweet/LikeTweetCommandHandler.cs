@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using TwitterLike.Core.Entities;
 using TwitterLike.Core.Repositories;
 
 namespace TwitterLike.Application.Commands.LikeTweet

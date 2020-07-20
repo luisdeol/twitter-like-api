@@ -13,6 +13,7 @@ namespace TwitterLike.Infrastructure.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<UserFollower> Followers { get; set; }
         public DbSet<TweetLike> TweetLikes { get; set; }
+        public DbSet<TweetRetweet> Retweets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder
@@ -42,8 +43,16 @@ namespace TwitterLike.Infrastructure.Persistence
                 .Ignore(t => t.LikesAmount);
 
             modelBuilder
+                .Entity<Tweet>()
+                .Ignore(t => t.RetweetsAmount);
+
+            modelBuilder
                 .Entity<TweetLike>()
                 .HasKey(tl => new { tl.UserId, tl.TweetId });
+            
+            modelBuilder
+                .Entity<TweetRetweet>()
+                .HasKey(tr => new { tr.UserId, tr.TweetId });
 
             modelBuilder
                 .Entity<TweetRetweet>()

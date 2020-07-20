@@ -24,7 +24,7 @@ namespace TwitterLike.Application.Queries.GetTweet
                 throw new NotFoundException(nameof(Tweet));
             }
 
-            return new GetTweetViewModel(tweet.Id, tweet.Content, new GetTweetUserViewModel(tweet.UserId, tweet.User.Username, tweet.User.Name), tweet.LikesAmount);
+            return new GetTweetViewModel(tweet.Id, tweet.Content, new GetTweetUserViewModel(tweet.UserId, tweet.User.Username, tweet.User.Name), tweet.LikesAmount, tweet.RetweetsAmount);
         }
     }
 }
